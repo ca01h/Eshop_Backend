@@ -26,7 +26,7 @@ import xadmin
 from Eshop.settings import MEDIA_ROOT
 from goods.views import GoodsListViewSet, CategoryViewSet
 from users.views import SmsCodeViewSet, UserViewSet
-from user_operation.views import UserFavViewSet
+from user_operation.views import UserFavViewSet, LeavingMessageViewSet, AddressViewSet
 
 
 router = DefaultRouter()
@@ -48,6 +48,12 @@ router.register(r'users', UserViewSet, base_name='users')
 
 # 配置用户收藏的URL
 router.register(r'userfavs', UserFavViewSet, base_name='userfavs')
+
+# 配置用户留言的URL
+router.register(r'message', LeavingMessageViewSet, base_name='message')
+
+# 配置收货地址的URL
+router.register(r'address', AddressViewSet, base_name='address')
 
 urlpatterns = [
     url(r'^xadmin/', xadmin.site.urls),
