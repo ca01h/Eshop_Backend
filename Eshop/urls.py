@@ -27,6 +27,7 @@ from Eshop.settings import MEDIA_ROOT
 from goods.views import GoodsListViewSet, CategoryViewSet
 from users.views import SmsCodeViewSet, UserViewSet
 from user_operation.views import UserFavViewSet, LeavingMessageViewSet, AddressViewSet
+from trade.views import ShoppingCartViewSet, OrderViewSet
 
 
 router = DefaultRouter()
@@ -54,6 +55,12 @@ router.register(r'message', LeavingMessageViewSet, base_name='message')
 
 # 配置收货地址的URL
 router.register(r'address', AddressViewSet, base_name='address')
+
+# 配置购物车的URL
+router.register(r'shoppingcart', ShoppingCartViewSet, base_name='shoppingcart')
+
+# 配置订单的URL
+router.register(r'order', OrderViewSet, base_name='order')
 
 urlpatterns = [
     url(r'^xadmin/', xadmin.site.urls),

@@ -12,7 +12,7 @@ User = get_user_model()
 # Create your models here.
 
 
-class ShoppingCar(models.Model):
+class ShoppingCart(models.Model):
     """
     购物车
     """
@@ -24,6 +24,7 @@ class ShoppingCar(models.Model):
     class Meta:
         verbose_name = '购物车'
         verbose_name_plural = verbose_name
+        unique_together = ('user', 'goods')
 
     def __unicode__(self):
         return '%s(%d)'.format(self.goods.name, self.goods_num)
@@ -37,7 +38,7 @@ class OrderInfo(models.Model):
     ORDER_STATUS = (
         ('success', '成功'),
         ('cancel', '取消'),
-        ('cancel', '待支付'),
+        ('paying', '待支付'),
     )
     # PAY_TYPE=(
     #     ('alipay','支付宝'),
@@ -45,9 +46,9 @@ class OrderInfo(models.Model):
     # )考虑篇幅，只讲支付宝
 
     user = models.ForeignKey(User, verbose_name='用户', on_delete=models.CASCADE)
-    order_sn = models.CharField(max_length=30, unique=True, verbose_name='订单号')
+    order_sn = models.CharField(max_length=30, null=True, blank=True, unique=True, verbose_name='订单号')
     trade_no = models.CharField(max_length=100, unique=True, null=True, blank=True, verbose_name='交易号')
-    pay_status = models.CharField(choices=ORDER_STATUS, max_length=10, verbose_name='订单状态')
+    pay_status = models.CharField(choices=ORDER_STATUS, default='paying', max_length=10, verbose_name='订单状态')
     post_script = models.CharField(max_length=200, verbose_name='订单留言')
     order_mount = models.FloatField(default=0.0, verbose_name='订单金额')
     pay_time = models.DateTimeField(null=True, blank=True, verbose_name='支付时间')

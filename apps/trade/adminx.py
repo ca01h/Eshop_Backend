@@ -3,7 +3,7 @@ __author__ = 'cao.yh'
 __date__ = '2018/3/28 下午6:05'
 
 import xadmin
-from .models import ShoppingCar, OrderInfo, OrderGoods
+from .models import ShoppingCart, OrderInfo, OrderGoods
 
 
 class ShoppingCarAdmin(object):
@@ -23,5 +23,5 @@ class OrderInfoAdmin(object):
     inlines = [OrderGoodsInline, ]
 
 
-xadmin.site.register(ShoppingCar, ShoppingCarAdmin)
+xadmin.site.register(ShoppingCart, ShoppingCarAdmin)
 xadmin.site.register(OrderInfo, OrderInfoAdmin)
