@@ -31,7 +31,7 @@ SECRET_KEY = 'safbmvm+v6)$4l*=2y9$^i^5ep&+ixr0g_j$$xhdaey3=xfti7'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # 手机号码正则验证
 REGEX_MOBILE = '^(0|86|17951)?(13[0-9]|15[012356789]|18[0-9]|14[57]|17[678])[0-9]{8}$'
@@ -128,7 +128,7 @@ DATABASES = {
         'NAME': 'eshop',
         'USER': 'root',
         'PASSWORD': 'root',
-        'HOST': '127.0.0.1',
+        'HOST': '122.152.225.37',
         'OPTIONS': {'init_command': 'SET default_storage_engine=INNODB;'},
     }
 }
@@ -185,3 +185,7 @@ REST_FRAMEWORK = {
         # 'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
     )
 }
+
+# Alipay相关设置
+private_key_path = os.path.join(BASE_DIR, 'apps/trade/key/private_2048.txt')
+ali_pub_key_path = os.path.join(BASE_DIR, 'apps/trade/key/alipay_key_2048.txt')

@@ -27,7 +27,7 @@ from Eshop.settings import MEDIA_ROOT
 from goods.views import GoodsListViewSet, CategoryViewSet
 from users.views import SmsCodeViewSet, UserViewSet
 from user_operation.views import UserFavViewSet, LeavingMessageViewSet, AddressViewSet
-from trade.views import ShoppingCartViewSet, OrderViewSet
+from trade.views import ShoppingCartViewSet, OrderViewSet, AliPayView
 
 
 router = DefaultRouter()
@@ -84,5 +84,8 @@ urlpatterns = [
 
     # jwt的认证接口
     url(r'^login/', obtain_jwt_token),
+
+    # AliPay回调接口
+    url(r'^alipay/return/', AliPayView.as_view(), name='alipay')
 
 ]
