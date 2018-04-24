@@ -1,4 +1,6 @@
 # -*- coding:utf-8 -*-
+from utils.alipay import AliPay
+
 __author__ = 'cao.yh'
 __date__ = '2018/4/20 上午9:40'
 from rest_framework import serializers
@@ -7,6 +9,7 @@ import time
 from .models import ShoppingCart, OrderInfo, OrderGoods
 from goods.models import Goods
 from goods.serializers import GoodsSerializer
+from Eshop.settings import private_key_path, ali_pub_key_path
 
 
 class ShoppingCartDetailSerializer(serializers.ModelSerializer):
@@ -70,6 +73,26 @@ class OrderSerializer(serializers.ModelSerializer):
     trade_no = serializers.CharField(read_only=True)
     order_sn = serializers.CharField(read_only=True)
     pay_time = serializers.DateTimeField(read_only=True)
+    alipay_url = serializers.SerializerMethodField(read_only=True)
+
+    def get_alipay_url(self, obj):
+        alipay = AliPay(
+            appid="2016091500519386",
+            app_notify_url="http://122.152.225.37:8000/alipay/return/",
+            app_private_key_path=private_key_path,
+            alipay_public_key_path=ali_pub_key_path,
+            # 支付宝的公钥，验证支付宝回传消息使用，不是你自己的公钥,
+            debug=True,  # 默认False,
+            return_url="http://122.152.225.37:8000/alipay/return/"
+        )
+
+        url = alipay.direct_pay(
+            subject=obj.order_sn,
+            out_trade_no=obj.order_sn,
+            total_amount=obj.order_mount,
+        )
+        re_url = "https://openapi.alipaydev.com/gateway.do?{data}".format(data=url)
+        return re_url
 
     def generate_order_sn(self):
         from random import Random
