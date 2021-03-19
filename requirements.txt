@@ -9,7 +9,7 @@ django-filter==1.1.0
 django-formtools==2.1
 django-guardian==1.4.9
 django-reversion==2.0.13
-djangorestframework==3.7.7
+djangorestframework==3.11.2
 djangorestframework-jwt==1.11.0
 DjangoUeditor==1.8.143
 future==0.16.0
